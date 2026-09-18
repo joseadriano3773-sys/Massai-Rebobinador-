@@ -6,7 +6,7 @@ Incluído:
 - Página inicial responsiva
 - Área de DADOS GRATUITOS
 - Pesquisa de motores de demonstração
-- Planos: R$ 19,90 / R$ 119,90 / R$ 249,00
+- Planos: R$ 9,90 / R$ 49,90 / R$ 119,90
 - Tela de login/cadastro demonstrativa
 - Estrutura pronta para conectar banco de dados e pagamentos
 
