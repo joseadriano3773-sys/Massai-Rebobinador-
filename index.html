@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Massai Rebobinador — Banco de Dados de Motores Elétricos</title>
+<style>
+:root{--red:#f21d2f;--dark:#061522;--dark2:#0b2030;--line:#28465b;--text:#f5f8fb;--muted:#b9c8d3;--light:#f4f7f9}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--light);color:#102333}
+a{text-decoration:none;color:inherit}.top{background:linear-gradient(135deg,#04121d,#0b2435);color:#fff;position:sticky;top:0;z-index:20;border-bottom:1px solid #294457}
+.nav{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:16px 22px;gap:20px}
+.logo{display:flex;align-items:center;gap:12px}.gear{width:50px;height:50px;border-radius:50%;border:9px dotted var(--red);position:relative}.gear:after{content:"⚡";position:absolute;left:10px;top:5px;color:var(--red);font-size:25px}
+.logo b{font-size:22px}.logo small{display:block;font-size:11px;letter-spacing:.3px;color:#d8e2e9}
+.navlinks{display:flex;gap:24px;align-items:center}.navlinks a{color:#e9f0f5;font-size:14px}.btn{border:0;border-radius:7px;padding:12px 20px;font-weight:700;cursor:pointer}.btn.red{background:var(--red);color:#fff}.btn.dark{background:#071a28;color:#fff}.btn.outline{background:transparent;border:1px solid #fff;color:#fff}
+.hero{background:radial-gradient(circle at 75% 35%,#123e58,#061522 55%);color:#fff}.hero-inner{max-width:1200px;margin:auto;min-height:440px;padding:70px 24px;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:35px}
+.hero h1{font-size:46px;line-height:1.05;margin:0 0 18px}.hero h1 span{color:var(--red)}.hero p{font-size:17px;line-height:1.6;color:#d5e1e9;max-width:650px}.motor{height:300px;border-radius:28px;background:linear-gradient(145deg,#0e4d73,#071a27);display:flex;align-items:center;justify-content:center;box-shadow:0 25px 70px #0008;border:1px solid #28566e;font-size:120px}
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0}.feature{display:flex;gap:10px;align-items:center}.icon{width:42px;height:42px;border-radius:50%;background:var(--red);display:grid;place-items:center;color:#fff;font-weight:bold}
+section{max-width:1200px;margin:auto;padding:48px 22px}.section-title{text-align:center;margin-bottom:28px}.section-title h2{font-size:32px;margin:0 0 8px}.section-title p{color:#607483}
+.free{background:linear-gradient(135deg,#061522,#0d2a3c);color:#fff;border:2px solid var(--red);border-radius:18px;padding:30px}.free-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.free-card{background:#0b2232;border:1px solid #31536a;border-radius:12px;padding:20px}.free-card h3{margin:8px 0;color:#fff}.free-card p{color:#b9cbd7;line-height:1.5;font-size:14px}.free-card button{margin-top:8px}
+.searchbox{background:#fff;border-radius:16px;padding:24px;box-shadow:0 8px 30px #10233314}.searchrow{display:flex;gap:10px}.searchrow input{flex:1;padding:14px;border:1px solid #c8d4dc;border-radius:8px;font-size:15px}.table-wrap{overflow:auto;margin-top:18px}.table{width:100%;border-collapse:collapse;min-width:700px}.table th,.table td{padding:13px;border-bottom:1px solid #e0e7eb;text-align:left;font-size:14px}.table th{background:#eef3f6}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.plan{background:#fff;border:1px solid #d3dee5;border-radius:14px;padding:26px;text-align:center;position:relative}.plan.featured{border:2px solid var(--red)}.badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:bold}.price{font-size:34px;font-weight:800;margin:10px}.plan p{color:#667a88}.plan ul{text-align:left;line-height:2;color:#415665;padding-left:22px}
+.footer{background:#061522;color:#c9d7df;padding:28px 22px;text-align:center}.footer b{color:#fff}
+.modal{display:none;position:fixed;inset:0;background:#0009;z-index:50;place-items:center;padding:20px}.modal.open{display:grid}.modalbox{background:#fff;border-radius:15px;padding:28px;max-width:430px;width:100%}.modalbox h2{margin-top:0}.modalbox input{width:100%;padding:13px;margin:7px 0;border:1px solid #cbd7de;border-radius:7px}.close{float:right;cursor:pointer;font-size:24px}.notice{padding:12px;border-radius:8px;background:#eef7ff;color:#1e4d69;margin:10px 0;font-size:13px}
+@media(max-width:850px){.navlinks{display:none}.hero-inner{grid-template-columns:1fr}.hero h1{font-size:38px}.features,.free-grid,.plans{grid-template-columns:1fr 1fr}.motor{height:220px;font-size:80px}}
+@media(max-width:560px){.features,.free-grid,.plans{grid-template-columns:1fr}.hero-inner{padding-top:45px}.hero h1{font-size:32px}.nav{padding:12px 15px}.logo b{font-size:18px}}
+</style>
+</head>
+<body>
+<header class="top">
+<nav class="nav">
+  <a class="logo" href="#inicio"><span class="gear"></span><span><b>Massai Rebobinador</b><small>BANCO DE DADOS DE REBOBINAGEM DE MOTORES ELÉTRICOS</small></span></a>
+  <div class="navlinks">
+    <a href="#inicio">Início</a><a href="#gratuitos">Dados gratuitos</a><a href="#pesquisa">Pesquisar</a><a href="#planos">Planos</a>
+    <button class="btn outline" onclick="openModal('login')">Entrar</button>
+    <button class="btn red" onclick="openModal('register')">Cadastrar</button>
+  </div>
+</nav>
+</header>
+
+<main id="inicio">
+<section class="hero">
+<div class="hero-inner">
+<div>
+<h1>O conhecimento certo para o <span>seu trabalho!</span></h1>
+<p>Um banco de dados organizado para quem trabalha com rebobinagem e manutenção de motores elétricos. Consulte informações técnicas, tabelas, esquemas e fichas de motores.</p>
+<div class="features">
+ <div class="feature"><span class="icon">✓</span><span>Dados técnicos</span></div>
+ <div class="feature"><span class="icon">▦</span><span>Fotos e esquemas</span></div>
+ <div class="feature"><span class="icon">PDF</span><span>Tabelas e PDFs</span></div>
+ <div class="feature"><span class="icon">★</span><span>Acesso seguro</span></div>
+</div>
+<button class="btn red" onclick="document.querySelector('#gratuitos').scrollIntoView({behavior:'smooth'})">Ver dados gratuitos</button>
+<button class="btn outline" onclick="document.querySelector('#planos').scrollIntoView({behavior:'smooth'})">Ver planos</button>
+</div>
+<div class="motor">⚙️</div>
+</div>
+</section>
+
+<section id="gratuitos">
+<div class="free">
+<div class="section-title" style="color:white"><h2>🎁 Dados gratuitos para motores elétricos</h2><p style="color:#b9cbd7">Tenha acesso a informações básicas sem assinatura.</p></div>
+<div class="free-grid">
+<div class="free-card"><h3>📋 Tabelas de motores</h3><p>Consulte dados básicos de potência, tensão, RPM e polos.</p><button class="btn red" onclick="showFree('Tabela de motores')">Acessar grátis</button></div>
+<div class="free-card"><h3>🔌 Ligações</h3><p>Informações introdutórias sobre ligações Estrela e Triângulo.</p><button class="btn red" onclick="showFree('Ligações Estrela e Triângulo')">Acessar grátis</button></div>
+<div class="free-card"><h3>🧵 Bitolas de fios</h3><p>Tabela de referência inicial para consulta de bitolas.</p><button class="btn red" onclick="showFree('Bitolas de fios')">Acessar grátis</button></div>
+<div class="free-card"><h3>🔄 RPM e polos</h3><p>Relação de RPM e número de polos para consulta rápida.</p><button class="btn red" onclick="showFree('RPM e número de polos')">Acessar grátis</button></div>
+<div class="free-card"><h3>⚙️ Dados básicos</h3><p>Campos técnicos essenciais de motores elétricos.</p><button class="btn red" onclick="showFree('Dados básicos')">Acessar grátis</button></div>
+<div class="free-card"><h3>📄 Esquemas principais</h3><p>Área para disponibilizar esquemas e materiais selecionados gratuitamente.</p><button class="btn red" onclick="showFree('Esquemas principais')">Acessar grátis</button></div>
+</div>
+</div>
+</section>
+
+<section id="pesquisa">
+<div class="section-title"><h2>🔎 Pesquisa de motores</h2><p>Pesquise a base de dados de demonstração.</p></div>
+<div class="searchbox">
+<div class="searchrow"><input id="search" placeholder="Digite fabricante, modelo, potência ou tensão..." oninput="filterMotors()"><button class="btn red" onclick="filterMotors()">Buscar</button></div>
+<div class="table-wrap"><table class="table"><thead><tr><th>Fabricante</th><th>Modelo</th><th>Potência</th><th>Tensão</th><th>RPM</th><th>Polos</th></tr></thead><tbody id="motorRows"></tbody></table></div>
+</div>
+</section>
+
+<section id="planos">
+<div class="section-title"><h2>Planos de assinatura</h2><p>Escolha o acesso ao banco de dados completo.</p></div>
+<div class="plans">
+<div class="plan"><h3>Mensal</h3><div class="price">R$ 19,90</div><p>30 dias</p><ul><li>Banco de dados completo</li><li>Pesquisas ilimitadas</li><li>Atualizações</li></ul><button class="btn dark" onclick="subscribe('Mensal')">Assinar</button></div>
+<div class="plan featured"><span class="badge">MAIS ESCOLHIDO</span><h3>Semestral</h3><div class="price">R$ 119,90</div><p>6 meses</p><ul><li>Banco de dados completo</li><li>Pesquisas ilimitadas</li><li>Atualizações</li></ul><button class="btn red" onclick="subscribe('Semestral')">Assinar</button></div>
+<div class="plan"><h3>Anual</h3><div class="price">R$ 249,00</div><p>12 meses</p><ul><li>Banco de dados completo</li><li>Pesquisas ilimitadas</li><li>Atualizações</li></ul><button class="btn dark" onclick="subscribe('Anual')">Assinar</button></div>
+</div>
+</section>
+</main>
+
+<footer class="footer"><b>Massai Rebobinador</b> — Banco de Dados de Rebobinagem de Motores Elétricos<br><small>Protótipo demonstrativo. Pagamentos e banco de dados real devem ser conectados antes da publicação.</small></footer>
+
+<div class="modal" id="modal"><div class="modalbox">
+<span class="close" onclick="closeModal()">×</span>
+<div id="modalContent"></div>
+</div></div>
+
+<script>
+const motors=[
+['WEG','W22','5 CV','220/380 V','1750','4'],['WEG','W21','10 CV','220/380 V','1750','4'],
+['Mitsubishi','SF-JR','7,5 CV','220/380 V','1750','4'],['Siemens','1LA7','3 CV','220/380 V','1740','4'],
+['WEG','W22','1,5 CV','380 V','1720','4'],['WEG','W22','10 CV','220/380 V','1750','4'],
+['Siemens','1LE1','5 CV','220/380 V','1750','4'],['WEG','W12','2 CV','220/380 V','1730','4']
+];
+function filterMotors(){
+ const q=document.getElementById('search').value.toLowerCase();
+ document.getElementById('motorRows').innerHTML=motors.filter(r=>r.join(' ').toLowerCase().includes(q)).map(r=>'<tr>'+r.map(x=>'<td>'+x+'</td>').join('')+'</tr>').join('')||'<tr><td colspan="6">Nenhum motor encontrado.</td></tr>';
+}
+filterMotors();
+function openModal(type){
+ const content=type==='login'?`<h2>🔐 Acesse sua conta</h2><input placeholder="E-mail ou usuário"><input type="password" placeholder="Senha"><button class="btn red" style="width:100%;margin-top:10px" onclick="demoLogin()">Entrar</button><p style="text-align:center">ou</p><button class="btn dark" style="width:100%" onclick="openModal('register')">Criar uma conta</button>`:
+`<h2>👤 Criar sua conta</h2><input id="name" placeholder="Nome completo"><input id="email" placeholder="E-mail"><input placeholder="Telefone / WhatsApp"><input type="password" placeholder="Senha"><input type="password" placeholder="Confirmar senha"><button class="btn red" style="width:100%;margin-top:10px" onclick="demoRegister()">Cadastrar</button>`;
+document.getElementById('modalContent').innerHTML=content;document.getElementById('modal').classList.add('open');
+}
+function closeModal(){document.getElementById('modal').classList.remove('open')}
+function demoLogin(){alert('Login demonstrativo. Para uso real, conecte autenticação ao banco de dados.');closeModal()}
+function demoRegister(){alert('Cadastro demonstrativo criado nesta versão. Para uso real, conecte ao banco de dados.');closeModal()}
+function showFree(name){alert('Área gratuita: '+name+'\\n\\nEste espaço está pronto para receber os seus dados reais de motores elétricos.')}
+function subscribe(plan){alert('Plano selecionado: '+plan+'\\n\\nA próxima etapa é conectar o pagamento e liberar automaticamente o acesso ao banco de dados.')}
+</script>
+</body>
+</html>
